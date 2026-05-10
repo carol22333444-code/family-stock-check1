@@ -1,10 +1,10 @@
 {
   "defaultCode": "000543",
-  "generatedAt": "2026-05-11 00:06",
+  "generatedAt": "2026-05-11 00:25",
   "analyses": {
     "300059": {
       "meta": {
-        "updatedAt": "2026-05-11 00:06",
+        "updatedAt": "2026-05-11 00:25",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -22,7 +22,7 @@
         "name": "东方财富",
         "code": "300059",
         "currentPrice": 20.49,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-05-11 00:06",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-05-11 00:25",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "20.03-20.33元附近再看",
@@ -194,7 +194,7 @@
     },
     "000543": {
       "meta": {
-        "updatedAt": "2026-05-11 00:06",
+        "updatedAt": "2026-05-11 00:25",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -212,7 +212,7 @@
         "name": "皖能电力",
         "code": "000543",
         "currentPrice": 8.24,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-05-11 00:06",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-05-11 00:25",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "8.05-8.17元附近再看",
@@ -224,14 +224,14 @@
             "text": "逆风"
           },
           {
+            "label": "做T条件",
+            "state": "risk",
+            "text": "先别做T"
+          },
+          {
             "label": "价格位置",
             "state": "watch",
             "text": "贴近观察区"
-          },
-          {
-            "label": "做T条件",
-            "state": "watch",
-            "text": "只适合小T"
           },
           {
             "label": "一票否决",
@@ -263,9 +263,9 @@
         }
       },
       "holding": {
-        "isHolding": true,
-        "costPrice": 7.58,
-        "profitPct": 8.707124010554091,
+        "isHolding": false,
+        "costPrice": 8.24,
+        "profitPct": null,
         "status": "暂时安全",
         "value": "贴近观察区",
         "logic": "公告未见重大风险",
@@ -277,12 +277,12 @@
         "riskLine": "7.75元"
       },
       "tPlan": {
-        "suitable": "仅价格区间可观察",
+        "suitable": "暂不下结论",
         "buyZone": "8.05-8.17元",
         "sellZone": "8.34-8.49元",
         "invalidLine": "7.75元",
-        "ratio": "不超过20%",
-        "reason": "区间来自实时盘口、均线和当日高低点测算；空间不大，只适合小比例。"
+        "ratio": "先不做T",
+        "reason": "当前公告、市场环境、仓位或流动性条件不够完整，先不要把它当成做T信号。"
       },
       "deepDive": {
         "wind": {
@@ -384,7 +384,7 @@
     },
     "002130": {
       "meta": {
-        "updatedAt": "2026-05-11 00:06",
+        "updatedAt": "2026-05-11 00:25",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -402,7 +402,7 @@
         "name": "沃尔核材",
         "code": "002130",
         "currentPrice": 23.58,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-05-11 00:06",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-05-11 00:25",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "23.04-23.39元附近再看",

@@ -1,7 +1,7 @@
 const app = document.querySelector("#app");
 
 const watchlist = [
-  { name: "皖能电力", code: "000543", defaultCost: "7.58" },
+  { name: "皖能电力", code: "000543", defaultCost: "" },
   { name: "沃尔核材", code: "002130", defaultCost: "" },
   { name: "东方财富", code: "300059", defaultCost: "" }
 ];
@@ -24,7 +24,7 @@ const formState = {
   stockName: "皖能电力",
   stockCode: "000543",
   ownership: "bought",
-  costPrice: "7.58",
+  costPrice: "",
   position: "some",
   habit: "auto",
   allowT: true
@@ -68,8 +68,7 @@ function selectStock(code) {
   formState.stockName = selected.name;
   formState.stockCode = selected.code;
   if (previousCode !== selected.code) {
-    formState.costPrice = selected.defaultCost;
-    if (!selected.defaultCost) formState.ownership = "watch";
+    formState.costPrice = "";
   }
   renderMain();
 }

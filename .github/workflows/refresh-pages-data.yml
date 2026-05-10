@@ -40,7 +40,7 @@ jobs:
 
           curl -fsS -b /tmp/family-stock-cookie.txt \
             -H 'Content-Type: application/json' \
-            -d '{"stockName":"皖能电力","stockCode":"000543","ownership":"bought","costPrice":"7.58","position":"some","habit":"auto","allowT":true}' \
+            -d '{"stockName":"皖能电力","stockCode":"000543","ownership":"watch","costPrice":"","position":"some","habit":"auto","allowT":false}' \
             http://127.0.0.1:4173/api/analyze > /tmp/family-stock-000543.json
 
           curl -fsS -b /tmp/family-stock-cookie.txt \

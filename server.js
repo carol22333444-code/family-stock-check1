@@ -25,7 +25,7 @@ const stockProfiles = new Map([
   ["000543", {
     name: "皖能电力",
     code: "000543",
-    defaultCost: "7.58",
+    defaultCost: "",
     directionKeyword: "电力",
     focus: {
       conflict: "电力股核心看成本、电价、发电量和分红稳定性。",
