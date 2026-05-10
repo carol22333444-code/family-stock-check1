@@ -673,7 +673,7 @@ button {
 
 .ruler {
   position: relative;
-  height: 48px;
+  height: 62px;
   margin: 8px 0 10px;
 }
 
@@ -735,6 +735,25 @@ button {
   left: var(--current-pos);
 }
 
+.tick-cost {
+  left: var(--cost-pos);
+  top: 9px;
+  height: 42px;
+  background: transparent;
+  border-left: 2px dashed var(--color-key);
+}
+
+.dot-cost {
+  left: var(--cost-pos);
+  top: 37px;
+  width: 15px;
+  height: 15px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 3px solid var(--color-key);
+  box-shadow: none;
+}
+
 .dot {
   top: 13px;
   width: 22px;
@@ -743,6 +762,46 @@ button {
   background: var(--color-key-bright);
   border: 3px solid #fffcfb;
   box-shadow: none;
+}
+
+.dot.dot-cost {
+  top: 37px;
+  width: 15px;
+  height: 15px;
+  background: var(--surface);
+  border-color: var(--color-key);
+}
+
+.ruler-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.ruler-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+.legend-dot.current {
+  background: var(--color-key-bright);
+  border: 2px solid var(--surface);
+}
+
+.legend-dot.cost {
+  background: var(--surface);
+  border: 2px solid var(--color-key);
 }
 
 .tabs {

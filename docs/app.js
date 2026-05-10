@@ -306,14 +306,21 @@ function resultCard(data) {
   `;
 }
 
-function rulerStyle(r, currentPrice) {
+function activeCostPrice() {
+  if (formState.ownership !== "bought") return null;
+  const cost = Number(formState.costPrice);
+  return Number.isFinite(cost) && cost > 0 ? Number(cost.toFixed(2)) : null;
+}
+
+function rulerStyle(r, currentPrice, costPrice) {
   const values = [
     Number(r.stopLossPrice),
     Number(r.buyWatchLow),
     Number(r.buyWatchHigh),
     Number(currentPrice),
     Number(r.sellWatchLow),
-    Number(r.sellWatchHigh)
+    Number(r.sellWatchHigh),
+    Number(costPrice)
   ].filter(Number.isFinite);
   const min = Math.min(...values) * 0.995;
   const max = Math.max(...values) * 1.005;
@@ -325,19 +332,21 @@ function rulerStyle(r, currentPrice) {
     `--buy-end: ${pos(r.buyWatchHigh)}`,
     `--current-pos: ${pos(currentPrice)}`,
     `--sell-start: ${pos(r.sellWatchLow)}`,
-    `--sell-end: ${pos(r.sellWatchHigh)}`
+    `--sell-end: ${pos(r.sellWatchHigh)}`,
+    `--cost-pos: ${costPrice ? pos(costPrice) : "-999%"}`
   ].join(";");
 }
 
 function priceRuler(stock) {
   const r = stock.ruler;
+  const costPrice = activeCostPrice();
   return `
     <section class="card">
       <h2 class="section-title">价格尺</h2>
       <div class="ruler-wrap">
         <div class="ruler-labels"><span>风险线</span><span>低吸区</span><span>当前价</span><span>高抛区</span></div>
         <div class="ruler-values"><span>${r.stopLossPrice}</span><span>${r.buyWatchLow}-${r.buyWatchHigh}</span><span>${stock.currentPrice}</span><span>${r.sellWatchLow}-${r.sellWatchHigh}</span></div>
-        <div class="ruler" aria-label="价格尺" style="${rulerStyle(r, stock.currentPrice)}">
+        <div class="ruler" aria-label="价格尺" style="${rulerStyle(r, stock.currentPrice, costPrice)}">
           <span class="ruler-track"></span>
           <span class="ruler-segment risk-segment"></span>
           <span class="ruler-segment buy-segment"></span>
@@ -345,7 +354,12 @@ function priceRuler(stock) {
           <span class="tick tick-risk"></span>
           <span class="tick tick-buy"></span>
           <span class="dot dot-current"></span>
+          ${costPrice ? "<span class=\"tick tick-cost\"></span><span class=\"dot dot-cost\"></span>" : ""}
           <span class="tick tick-sell"></span>
+        </div>
+        <div class="ruler-legend">
+          <span><i class="legend-dot current"></i>实心圆：当前价 ${stock.currentPrice}</span>
+          ${costPrice ? `<span><i class="legend-dot cost"></i>空心点：成本价 ${costPrice}</span>` : ""}
         </div>
       </div>
       <p class="plain">${stock.plainText}</p>
