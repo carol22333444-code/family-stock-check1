@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: family-stock-check
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: FAMILY_PASSWORD
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
