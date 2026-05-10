@@ -1,0 +1,71 @@
+name: Refresh GitHub Pages data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 23 * * 0-4"
+    - cron: "0 4 * * 1-5"
+    - cron: "0 9 * * 1-5"
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Start local data service
+        run: |
+          HOST=127.0.0.1 PORT=4173 node server.js > /tmp/family-stock-server.log 2>&1 &
+          echo $! > /tmp/family-stock-server.pid
+          for i in {1..30}; do
+            curl -fsS http://127.0.0.1:4173/api/session && exit 0
+            sleep 1
+          done
+          cat /tmp/family-stock-server.log
+          exit 1
+
+      - name: Refresh static snapshot
+        run: |
+          curl -fsS -c /tmp/family-stock-cookie.txt \
+            -H 'Content-Type: application/json' \
+            -d '{"password":"123456"}' \
+            http://127.0.0.1:4173/api/login > /tmp/login.json
+
+          curl -fsS -b /tmp/family-stock-cookie.txt \
+            -H 'Content-Type: application/json' \
+            -d '{"stockName":"皖能电力","stockCode":"000543","ownership":"bought","costPrice":"7.58","position":"some","habit":"auto","allowT":true}' \
+            http://127.0.0.1:4173/api/analyze > /tmp/family-stock-data.json
+
+          node - <<'NODE'
+          const fs = require("fs");
+          const payload = JSON.parse(fs.readFileSync("/tmp/family-stock-data.json", "utf8"));
+          if (!payload.ok || !payload.data) throw new Error("analysis API failed");
+          payload.data.meta.notice = `GitHub Pages 静态快照版：数据按最近一次自动任务刷新，不是打开页面时实时拉取。 ${payload.data.meta.notice || ""}`;
+          fs.writeFileSync("docs/data.json", JSON.stringify(payload.data, null, 2));
+          NODE
+
+      - name: Stop local data service
+        if: always()
+        run: |
+          if [ -f /tmp/family-stock-server.pid ]; then
+            kill "$(cat /tmp/family-stock-server.pid)" || true
+          fi
+
+      - name: Commit refreshed data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data.json
+          if git diff --cached --quiet; then
+            echo "No data changes."
+          else
+            git commit -m "Refresh static market data"
+            git push
+          fi
