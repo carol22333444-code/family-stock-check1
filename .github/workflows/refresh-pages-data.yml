@@ -41,14 +41,37 @@ jobs:
           curl -fsS -b /tmp/family-stock-cookie.txt \
             -H 'Content-Type: application/json' \
             -d '{"stockName":"皖能电力","stockCode":"000543","ownership":"bought","costPrice":"7.58","position":"some","habit":"auto","allowT":true}' \
-            http://127.0.0.1:4173/api/analyze > /tmp/family-stock-data.json
+            http://127.0.0.1:4173/api/analyze > /tmp/family-stock-000543.json
+
+          curl -fsS -b /tmp/family-stock-cookie.txt \
+            -H 'Content-Type: application/json' \
+            -d '{"stockName":"沃尔核材","stockCode":"002130","ownership":"watch","costPrice":"","position":"some","habit":"auto","allowT":false}' \
+            http://127.0.0.1:4173/api/analyze > /tmp/family-stock-002130.json
+
+          curl -fsS -b /tmp/family-stock-cookie.txt \
+            -H 'Content-Type: application/json' \
+            -d '{"stockName":"东方财富","stockCode":"300059","ownership":"watch","costPrice":"","position":"some","habit":"auto","allowT":false}' \
+            http://127.0.0.1:4173/api/analyze > /tmp/family-stock-300059.json
 
           node - <<'NODE'
           const fs = require("fs");
-          const payload = JSON.parse(fs.readFileSync("/tmp/family-stock-data.json", "utf8"));
-          if (!payload.ok || !payload.data) throw new Error("analysis API failed");
-          payload.data.meta.notice = `GitHub Pages 静态快照版：数据按最近一次自动任务刷新，不是打开页面时实时拉取。 ${payload.data.meta.notice || ""}`;
-          fs.writeFileSync("docs/data.json", JSON.stringify(payload.data, null, 2));
+          const files = [
+            ["000543", "/tmp/family-stock-000543.json"],
+            ["002130", "/tmp/family-stock-002130.json"],
+            ["300059", "/tmp/family-stock-300059.json"]
+          ];
+          const analyses = {};
+          for (const [code, file] of files) {
+            const payload = JSON.parse(fs.readFileSync(file, "utf8"));
+            if (!payload.ok || !payload.data) throw new Error(`analysis API failed for ${code}`);
+            payload.data.meta.notice = `GitHub Pages 静态快照版：数据按最近一次自动任务刷新，不是打开页面时实时拉取。 ${payload.data.meta.notice || ""}`;
+            analyses[code] = payload.data;
+          }
+          fs.writeFileSync("docs/data.json", JSON.stringify({
+            defaultCode: "000543",
+            generatedAt: analyses["000543"].meta.updatedAt,
+            analyses
+          }, null, 2));
           NODE
 
       - name: Stop local data service

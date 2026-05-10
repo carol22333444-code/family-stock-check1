@@ -1,5 +1,11 @@
 const app = document.querySelector("#app");
 
+const watchlist = [
+  { name: "皖能电力", code: "000543", defaultCost: "7.58" },
+  { name: "沃尔核材", code: "002130", defaultCost: "" },
+  { name: "东方财富", code: "300059", defaultCost: "" }
+];
+
 const stateIcon = {
   safe: "🟢",
   watch: "🟡",
@@ -55,9 +61,37 @@ function setForm(key, value) {
   renderMain();
 }
 
+function selectStock(code) {
+  const selected = watchlist.find((item) => item.code === code);
+  if (!selected) return;
+  const previousCode = formState.stockCode;
+  formState.stockName = selected.name;
+  formState.stockCode = selected.code;
+  if (previousCode !== selected.code) {
+    formState.costPrice = selected.defaultCost;
+    if (!selected.defaultCost) formState.ownership = "watch";
+  }
+  renderMain();
+}
+
 function choice(label, key, value) {
   const active = formState[key] === value ? "active" : "";
   return `<button class="choice ${active}" data-set="${key}" data-value="${value}">${label}</button>`;
+}
+
+function stockChoice(item) {
+  const active = formState.stockCode === item.code ? "active" : "";
+  return `
+    <button class="choice stock-choice ${active}" data-stock-code="${item.code}">
+      <strong>${item.name}</strong>
+      <span>${item.code}</span>
+    </button>
+  `;
+}
+
+function orderedSignals(signals = []) {
+  const order = { risk: 0, watch: 1, safe: 2, missing: 3 };
+  return [...signals].sort((a, b) => (order[a.state] ?? 9) - (order[b.state] ?? 9));
 }
 
 function updateBar(meta = {}) {
@@ -138,8 +172,11 @@ function inputCard() {
   return `
     <section class="card" id="inputCard">
       <div class="field">
-        <label class="label" for="stockName">股票代码 / 名称</label>
-        <input class="input" id="stockName" placeholder="请输入，如 000543 皖能电力" value="${formState.stockName} ${formState.stockCode}" />
+        <div class="label">选择自选股</div>
+        <div class="stock-options">
+          ${watchlist.map(stockChoice).join("")}
+        </div>
+        <p class="helper-text">第一版只分析这三只自选股，避免把不完整数据说成确定结论。</p>
       </div>
       <div class="field">
         <div class="label">我是否已经买了</div>
@@ -186,6 +223,7 @@ function inputCard() {
 }
 
 function resultCard(data) {
+  const signals = orderedSignals(data.stock.signals);
   return `
     <section class="card hero-result">
       <div class="result-head">
@@ -203,13 +241,36 @@ function resultCard(data) {
     <section class="card">
       <h2 class="section-title">信号灯标签</h2>
       <div class="signal-strip">
-        ${data.stock.signals.map((item) => `
+        ${signals.map((item) => `
           <div class="signal ${stateClass[item.state]}">${stateIcon[item.state]} ${item.label}：${item.text}</div>
         `).join("")}
       </div>
     </section>
     ${pager("上一页", "下一页")}
   `;
+}
+
+function rulerStyle(r, currentPrice) {
+  const values = [
+    Number(r.stopLossPrice),
+    Number(r.buyWatchLow),
+    Number(r.buyWatchHigh),
+    Number(currentPrice),
+    Number(r.sellWatchLow),
+    Number(r.sellWatchHigh)
+  ].filter(Number.isFinite);
+  const min = Math.min(...values) * 0.995;
+  const max = Math.max(...values) * 1.005;
+  const span = max - min || 1;
+  const pos = (value) => `${Math.max(0, Math.min(100, ((Number(value) - min) / span) * 100)).toFixed(2)}%`;
+  return [
+    `--risk-pos: ${pos(r.stopLossPrice)}`,
+    `--buy-start: ${pos(r.buyWatchLow)}`,
+    `--buy-end: ${pos(r.buyWatchHigh)}`,
+    `--current-pos: ${pos(currentPrice)}`,
+    `--sell-start: ${pos(r.sellWatchLow)}`,
+    `--sell-end: ${pos(r.sellWatchHigh)}`
+  ].join(";");
 }
 
 function priceRuler(stock) {
@@ -220,7 +281,7 @@ function priceRuler(stock) {
       <div class="ruler-wrap">
         <div class="ruler-labels"><span>风险线</span><span>低吸区</span><span>当前价</span><span>高抛区</span></div>
         <div class="ruler-values"><span>${r.stopLossPrice}</span><span>${r.buyWatchLow}-${r.buyWatchHigh}</span><span>${stock.currentPrice}</span><span>${r.sellWatchLow}-${r.sellWatchHigh}</span></div>
-        <div class="ruler" aria-label="价格尺">
+        <div class="ruler" aria-label="价格尺" style="${rulerStyle(r, stock.currentPrice)}">
           <span class="ruler-track"></span>
           <span class="ruler-segment risk-segment"></span>
           <span class="ruler-segment buy-segment"></span>
@@ -418,8 +479,8 @@ function parseStockInput(value) {
 }
 
 function validateInput() {
-  if (!formState.stockName && !formState.stockCode) {
-    formError = "先输入股票代码或名称。";
+  if (!watchlist.some((item) => item.code === formState.stockCode)) {
+    formError = "先选择一只自选股。";
     return false;
   }
   if (formState.ownership === "bought" && !String(formState.costPrice || "").trim()) {
@@ -481,6 +542,9 @@ function renderMain() {
 
   document.querySelectorAll("[data-set]").forEach((button) => {
     button.addEventListener("click", () => setForm(button.dataset.set, button.dataset.value));
+  });
+  document.querySelectorAll("[data-stock-code]").forEach((button) => {
+    button.addEventListener("click", () => selectStock(button.dataset.stockCode));
   });
   document.querySelectorAll("[data-allow]").forEach((button) => {
     button.addEventListener("click", () => setForm("allowT", button.dataset.allow === "true"));

@@ -21,7 +21,42 @@ const failMap = new Map();
 const DATA_MODE = process.env.MARKET_DATA_MODE || "public-quote-crosscheck";
 const REFRESH_HOURS = new Set([7, 12, 17]);
 const quoteCache = new Map();
-const watchedStocks = new Map([["000543", { stockName: "皖能电力", stockCode: "000543" }]]);
+const stockProfiles = new Map([
+  ["000543", {
+    name: "皖能电力",
+    code: "000543",
+    defaultCost: "7.58",
+    directionKeyword: "电力",
+    focus: {
+      conflict: "电力股核心看成本、电价、发电量和分红稳定性。",
+      variables: ["煤价和燃料成本是否继续抬升", "上网电价和发电量是否稳定", "分红、现金流和公告是否保持稳健"],
+      explanation: "这只股票不是看故事，先看电力运营基本盘、公告风险和价格位置。"
+    }
+  }],
+  ["002130", {
+    name: "沃尔核材",
+    code: "002130",
+    defaultCost: "",
+    directionKeyword: "核电",
+    focus: {
+      conflict: "核心看新材料订单、核电相关需求和利润兑现能不能跟上股价。",
+      variables: ["热缩材料、线缆和新材料业务订单是否持续", "核电及新能源相关需求是否有公告或业绩支撑", "股价上涨后量能是否过热、公告是否有减持或风险"],
+      explanation: "这只股票更要盯订单兑现和价格位置，不能只看题材热度。"
+    }
+  }],
+  ["300059", {
+    name: "东方财富",
+    code: "300059",
+    defaultCost: "",
+    directionKeyword: "券商",
+    focus: {
+      conflict: "核心看市场成交活跃度、基金销售景气度和券商行情能不能持续。",
+      variables: ["两市成交额是否持续放大", "券商和金融科技方向是否只是短期情绪", "基金销售、融资融券和公告风险是否有变化"],
+      explanation: "这只股票弹性来自市场活跃度，不能只看一天涨跌，要看成交额和券商板块能不能连续。"
+    }
+  }]
+]);
+const watchedStocks = new Map([...stockProfiles].map(([code, profile]) => [code, { stockName: profile.name, stockCode: code }]));
 let lastScheduledRefreshKey = "";
 
 const publicDir = join(process.cwd(), "public");
@@ -173,7 +208,13 @@ function isShanghaiWorkday(date = new Date()) {
 function normalizeStockCode(input = {}) {
   const joined = `${input.stockCode || ""} ${input.stockName || ""}`;
   const matched = joined.match(/\b\d{6}\b/);
-  return matched?.[0] || "000543";
+  const byCode = matched?.[0];
+  if (byCode && stockProfiles.has(byCode)) return byCode;
+  const byName = [...stockProfiles.values()].find((item) => joined.includes(item.name));
+  if (byName) return byName.code;
+  const error = new Error("当前第一版只支持皖能电力、沃尔核材和东方财富三个自选股。");
+  error.statusCode = 400;
+  throw error;
 }
 
 function secidFor(code) {
@@ -554,23 +595,36 @@ function buildPriceModel(quote, klines = []) {
   const high52 = klines.length ? Math.max(...klines.slice(-252).map((row) => row.high)) : quote.high || currentPrice;
   const low52 = klines.length ? Math.min(...klines.slice(-252).map((row) => row.low)) : quote.low || currentPrice;
   const latest = klines.at(-1);
+  const recent20 = klines.slice(-20);
+  const recentHigh20 = recent20.length ? Math.max(...recent20.map((row) => row.high)) : quote.high || currentPrice;
+  const recentLow20 = recent20.length ? Math.min(...recent20.map((row) => row.low)) : quote.low || currentPrice;
   const avg20Volume = average(klines.slice(-20).map((row) => row.volume));
   const amountRatio = avg20Volume && latest?.volume ? latest.volume / avg20Volume : null;
   const position52 = high52 > low52 ? (currentPrice - low52) / (high52 - low52) : 0.5;
-  const buyBase = Math.min(currentPrice, ma20 || currentPrice, quote.low || currentPrice);
-  const sellBase = Math.max(currentPrice, quote.high || currentPrice, ma20 || currentPrice);
-  const buyWatchLow = roundPrice(Math.max(low52, buyBase * 0.99));
-  const buyWatchHigh = roundPrice(Math.max(buyWatchLow, Math.min(currentPrice, buyBase * 1.005)));
-  const sellWatchLow = roundPrice(Math.max(currentPrice, sellBase * 0.995));
-  const sellWatchHigh = roundPrice(Math.max(sellWatchLow, sellBase * 1.01));
-  const stopLossPrice = roundPrice(Math.max(low52, Math.min(quote.low || currentPrice, ma60 ? ma60 * 0.985 : currentPrice * 0.97)));
+  const supportCandidates = [ma20, ma60, quote.low, latest?.low, recentLow20]
+    .filter((value) => Number.isFinite(value) && value > 0 && value < currentPrice * 0.998);
+  const nearestSupport = supportCandidates.length ? Math.max(...supportCandidates) : currentPrice * 0.97;
+  let buyWatchHigh = roundPrice(Math.min(currentPrice * 0.992, nearestSupport * 1.006));
+  let buyWatchLow = roundPrice(Math.min(buyWatchHigh * 0.985, nearestSupport * 0.99));
+  if (buyWatchLow >= buyWatchHigh) buyWatchLow = roundPrice(buyWatchHigh * 0.985);
+
+  const pressureCandidates = [ma20, ma60, quote.high, recentHigh20, high52]
+    .filter((value) => Number.isFinite(value) && value > currentPrice * 1.002);
+  const nearestPressure = pressureCandidates.length ? Math.min(...pressureCandidates) : currentPrice * 1.04;
+  let sellWatchLow = roundPrice(Math.max(currentPrice * 1.012, nearestPressure * 0.994));
+  let sellWatchHigh = roundPrice(Math.max(sellWatchLow * 1.018, nearestPressure * 1.008));
+  if (sellWatchLow <= currentPrice) sellWatchLow = roundPrice(currentPrice * 1.012);
+  if (sellWatchHigh <= sellWatchLow) sellWatchHigh = roundPrice(sellWatchLow * 1.018);
+
+  const stopBase = Math.min(buyWatchLow * 0.975, recentLow20 * 0.985, currentPrice * 0.94);
+  const stopLossPrice = roundPrice(Math.max(low52 * 0.98, Math.min(stopBase, buyWatchLow * 0.985)));
 
   let priceText = "中位观察";
   let priceState = "watch";
-  if (position52 <= 0.35 || currentPrice <= buyWatchHigh) {
+  if (currentPrice <= buyWatchHigh * 1.015 || position52 <= 0.35) {
     priceText = "贴近观察区";
-    priceState = "safe";
-  } else if (position52 >= 0.75 || currentPrice >= sellWatchLow) {
+    priceState = "watch";
+  } else if (position52 >= 0.75 || currentPrice >= sellWatchLow * 0.985) {
     priceText = "位置偏高";
     priceState = "watch";
   }
@@ -596,19 +650,6 @@ function buildPriceModel(quote, klines = []) {
 
 const directionPools = [
   {
-    name: "高股息央国企",
-    fit: "稳健型，怕大跌，重视分红的人。",
-    reason: "用重点观察股的实时涨跌、52周位置和量能判断是否还在低位。",
-    condition: "52周位置不高、短期涨幅不过热、量能没有异常放大。",
-    metrics: "实时涨跌幅、52周位置、20日均量、公告风险",
-    stocks: [
-      ["601088", "中国神华"],
-      ["600900", "长江电力"],
-      ["601225", "陕西煤业"],
-      ["600941", "中国移动"]
-    ]
-  },
-  {
     name: "电力运营",
     fit: "想看防守和周期修复，但不想追高的人。",
     reason: "用电力运营股的实时位置和量能，观察是否低位修复。",
@@ -622,16 +663,29 @@ const directionPools = [
     ]
   },
   {
-    name: "通信设备",
-    fit: "能接受波动，但不想追热门高潮的人。",
-    reason: "用通信设备重点股的实时涨跌和52周位置，判断情绪是否过热。",
-    condition: "方向不在高潮日，重点股回到相对合理位置再观察。",
+    name: "核电新材料",
+    fit: "想看主题弹性，但不想追高的人。",
+    reason: "用核电、新材料相关重点股的实时涨跌和52周位置，判断情绪是否过热。",
+    condition: "方向有政策或订单支撑，但重点股没有连续放量冲高。",
     metrics: "实时涨跌幅、52周位置、成交量变化、板块强弱",
     stocks: [
-      ["000063", "中兴通讯"],
-      ["600522", "中天科技"],
-      ["600487", "亨通光电"],
-      ["300308", "中际旭创"]
+      ["002130", "沃尔核材"],
+      ["601985", "中国核电"],
+      ["000777", "中核科技"],
+      ["600875", "东方电气"]
+    ]
+  },
+  {
+    name: "券商金融科技",
+    fit: "能接受波动，想观察市场活跃度修复的人。",
+    reason: "用券商和互联网金融重点股的实时涨跌、52周位置和量能，判断是不是情绪过热。",
+    condition: "两市成交额改善，板块没有连续高潮，重点股回到合理位置。",
+    metrics: "实时涨跌幅、52周位置、成交量变化、市场成交额",
+    stocks: [
+      ["300059", "东方财富"],
+      ["600030", "中信证券"],
+      ["601688", "华泰证券"],
+      ["600958", "东方证券"]
     ]
   }
 ];
@@ -699,12 +753,18 @@ async function buildDirectionCards() {
   });
 }
 
+function orderSignals(signals = []) {
+  const order = { risk: 0, watch: 1, safe: 2, missing: 3 };
+  return [...signals].sort((a, b) => (order[a.state] ?? 9) - (order[b.state] ?? 9));
+}
+
 async function analyzeStock(input = {}) {
   const [bundle, directions] = await Promise.all([
     getMarketData(input),
     buildDirectionCards()
   ]);
   const { quote, crossCheck, quoteDiff, klines, risk } = bundle;
+  const profile = stockProfiles.get(bundle.code) || stockProfiles.get("000543");
   const model = buildPriceModel(quote, klines);
   const marketSnapshot = await fetchMarketSnapshot(directions).catch(() => ({
     weather: "数据获取失败",
@@ -717,8 +777,8 @@ async function analyzeStock(input = {}) {
     breadth: null
   }));
   const isHolding = input.ownership === "bought";
-  const cost = Number(input.costPrice || 7.58);
   const currentPrice = model.currentPrice;
+  const cost = Number(input.costPrice || profile.defaultCost || currentPrice);
   const profitPct = isHolding && cost > 0 ? ((currentPrice - cost) / cost) * 100 : null;
   const heavyPosition = input.position === "very-heavy" || input.position === "more";
   const allowsT = input.allowT === true && input.habit !== "conservative";
@@ -764,15 +824,15 @@ async function analyzeStock(input = {}) {
       sentence: marketSnapshot.sentence
     },
     stock: {
-      name: input.stockName?.trim() || quote.name || "皖能电力",
-      code: quote.code || input.stockCode?.trim() || "000543",
+      name: profile.name || quote.name,
+      code: profile.code || quote.code,
       currentPrice,
       priceSource: `${quote.sourceName}${crossCheck ? "｜新浪校验" : ""}｜${quote.fetchedAt}`,
       conclusion,
       action,
       keyReminder: `${buyZone}附近再看`,
       plainText: "价格尺基于实时盘口、当日高低点、20日线和60日线测算；跌破防守线要先防风险。",
-      signals: [
+      signals: orderSignals([
         { label: "价格位置", state: model.priceState, text: model.priceText },
         { label: "一票否决", state: risk.oneVoteState, text: risk.oneVoteText },
         { label: "市场环境", state: marketSnapshot.weatherLevel, text: marketSnapshot.weather },
@@ -780,7 +840,7 @@ async function analyzeStock(input = {}) {
         { label: "公告风险", state: risk.announcementState, text: risk.announcementText },
         { label: "资金筹码", state: chipsState, text: chipsText },
         { label: "做T条件", state: canSmallT ? "watch" : "risk", text: canSmallT ? "只适合小T" : "先别做T" }
-      ],
+      ]),
       ruler: {
         stopLossPrice: model.stopLossPrice,
         buyWatchLow: model.buyWatchLow,
@@ -816,17 +876,13 @@ async function analyzeStock(input = {}) {
     deepDive: {
       wind: {
         market: marketSnapshot.weather,
-        sector: directions.find((item) => item.name.includes("电力"))?.status || "按个股观察",
-        industry: directions.find((item) => item.name.includes("电力"))?.status || "按个股观察",
+        sector: directions.find((item) => item.name.includes(profile.directionKeyword))?.status || "按个股观察",
+        industry: directions.find((item) => item.name.includes(profile.directionKeyword))?.status || "按个股观察",
         voice: chipsText,
         explanation: marketSnapshot.weatherLevel === "safe" ? "市场不算逆风，但个股仍要看价格和公告。" : marketSnapshot.weatherLevel === "risk" ? "大盘环境偏弱，先少动。" : "现在不是不能看，但也不是顺风局，更适合等回踩。"
       },
       events: risk.events,
-      focus: {
-        conflict: "电力股核心看成本、电价和发电量。",
-        variables: ["公告和财报是否有经营变化", "电力方向是否低位修复", "成交量是否温和放大而不是过热"],
-        explanation: "这只股票不是看故事，先看公告、价格位置和电力方向强弱。"
-      },
+      focus: profile.focus,
       expensive: {
         pricePosition: model.priceText,
         ma20: model.ma20 ? (currentPrice >= model.ma20 ? `高于20日线 ${roundPrice(model.ma20)}元` : `低于20日线 ${roundPrice(model.ma20)}元`) : "获取失败",
@@ -924,7 +980,8 @@ createServer(async (req, res) => {
     serveStatic(req, res);
   } catch (error) {
     console.error(error);
-    sendJson(res, 500, { ok: false, message: "服务暂时开小差了，请稍后再试。" });
+    const status = error.statusCode || 500;
+    sendJson(res, status, { ok: false, message: status === 400 ? error.message : "服务暂时开小差了，请稍后再试。" });
   }
 }).listen(PORT, HOST, () => {
   console.log(`A股家庭持仓体检页已启动：http://${HOST}:${PORT}`);

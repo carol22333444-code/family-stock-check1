@@ -314,6 +314,12 @@ button {
   gap: 8px;
 }
 
+.stock-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
 .choice-row.four {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -332,6 +338,36 @@ button {
   background: var(--section-stock-title-bg);
   border-color: var(--section-stock-accent);
   color: var(--text);
+}
+
+.stock-choice {
+  display: grid;
+  gap: 2px;
+  align-content: center;
+  min-height: 62px;
+  text-align: left;
+}
+
+.stock-choice strong {
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.stock-choice span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.stock-choice.active span {
+  color: var(--color-risk-text);
+}
+
+.helper-text {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 .primary {
@@ -657,19 +693,19 @@ button {
 
 .risk-segment {
   left: 0;
-  width: 18%;
+  width: var(--risk-pos);
   background: var(--color-risk);
 }
 
 .buy-segment {
-  left: 36%;
-  width: 12%;
+  left: var(--buy-start);
+  width: calc(var(--buy-end) - var(--buy-start));
   background: var(--color-stable);
 }
 
 .sell-segment {
-  left: 64%;
-  width: 36%;
+  left: var(--sell-start);
+  width: calc(var(--sell-end) - var(--sell-start));
   background: var(--color-text-main);
 }
 
@@ -684,19 +720,19 @@ button {
 }
 
 .tick-risk {
-  left: 5%;
+  left: var(--risk-pos);
 }
 
 .tick-buy {
-  left: 38%;
+  left: var(--buy-start);
 }
 
 .tick-sell {
-  left: 88%;
+  left: var(--sell-start);
 }
 
 .dot-current {
-  left: 58%;
+  left: var(--current-pos);
 }
 
 .dot {
