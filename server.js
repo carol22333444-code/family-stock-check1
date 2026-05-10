@@ -264,7 +264,7 @@ function movingAverage(rows, days) {
 
 async function fetchJson(url) {
   const parsed = new URL(url);
-  if (!["qt.gtimg.cn", "hq.sinajs.cn", "web.ifzq.gtimg.cn", "www.cninfo.com.cn", "push2.eastmoney.com"].includes(parsed.hostname)) {
+  if (!["qt.gtimg.cn", "hq.sinajs.cn", "web.ifzq.gtimg.cn", "www.cninfo.com.cn", "push2.eastmoney.com", "push2delay.eastmoney.com"].includes(parsed.hostname)) {
     throw new Error("数据源未授权");
   }
   const referer = parsed.hostname.includes("cninfo")
@@ -365,6 +365,29 @@ async function fetchSinaQuote(code) {
     low: Number(fields[5]),
     volume: Number(fields[8]),
     amount: Number(fields[9])
+  };
+}
+
+async function fetchEastmoneyQuote(code) {
+  const url = `https://push2delay.eastmoney.com/api/qt/stock/get?fltt=2&invt=2&fields=f43,f44,f45,f46,f47,f48,f57,f58,f60,f168,f170&secid=${secidFor(code)}`;
+  const text = await fetchJson(url);
+  const parsed = JSON.parse(text);
+  const data = parsed.data;
+  if (!data || !Number.isFinite(Number(data.f43))) throw new Error("东方财富行情数据解析失败");
+  return {
+    sourceName: "东方财富行情接口",
+    sourceUrl: url,
+    name: data.f58,
+    code: data.f57 || code,
+    currentPrice: Number(data.f43),
+    high: Number(data.f44),
+    low: Number(data.f45),
+    open: Number(data.f46),
+    previousClose: Number(data.f60),
+    volume: Number(data.f47),
+    amount: Number(data.f48),
+    turnoverRate: Number(data.f168),
+    changePct: Number(data.f170)
   };
 }
 
@@ -560,13 +583,17 @@ async function getMarketData(input = {}, force = false) {
   const cached = quoteCache.get(code);
   if (!force && cached && Date.now() - cached.cachedAt < 60 * 1000) return cached;
 
-  const [quote, crossCheck, klines, announcements] = await Promise.all([
+  const [quote, crossCheck, eastmoneyQuote, klines, announcements] = await Promise.all([
     fetchTencentQuote(code),
     fetchSinaQuote(code).catch(() => null),
+    fetchEastmoneyQuote(code).catch(() => null),
     fetchTencentKline(code).catch(() => []),
     fetchCninfoAnnouncements(code).catch(() => null)
   ]);
-  const quoteDiff = crossCheck?.currentPrice ? Math.abs(quote.currentPrice - crossCheck.currentPrice) : null;
+  const quoteDiffs = [crossCheck, eastmoneyQuote]
+    .map((item) => item?.currentPrice ? Math.abs(quote.currentPrice - item.currentPrice) : null)
+    .filter((value) => value != null);
+  const quoteDiff = quoteDiffs.length ? Math.max(...quoteDiffs) : null;
   const risk = announcements ? classifyAnnouncements(announcements, quote) : {
     sourceOk: false,
     announcements: [],
@@ -582,7 +609,7 @@ async function getMarketData(input = {}, force = false) {
       { label: "分红除权", state: "missing", text: "获取失败" }
     ]
   };
-  const bundle = { code, quote, crossCheck, quoteDiff, klines, risk, cachedAt: Date.now() };
+  const bundle = { code, quote, crossCheck, eastmoneyQuote, quoteDiff, klines, risk, cachedAt: Date.now() };
   quoteCache.set(code, bundle);
   return bundle;
 }
@@ -650,67 +677,110 @@ function buildPriceModel(quote, klines = []) {
 
 const directionPools = [
   {
-    name: "电力运营",
-    fit: "想看防守和周期修复，但不想追高的人。",
-    reason: "用电力运营股的实时位置和量能，观察是否低位修复。",
-    condition: "接近20日线或60日线，未明显放量冲高，公告无重大风险。",
+    name: "高股息央国企",
+    fit: "稳健型，怕大跌，重视分红的人。",
+    reason: "现金流和分红稳定性相对更容易观察，适合做防守方向的客观跟踪。",
+    condition: "52周位置不高，股息吸引力没有被短期涨幅透支，公告无重大风险。",
+    metrics: "实时涨跌幅、52周位置、20日均量、分红稳定性",
+    stocks: [
+      ["601088", "中国神华"],
+      ["600900", "长江电力"],
+      ["601225", "陕西煤业"],
+      ["600941", "中国移动"]
+    ]
+  },
+  {
+    name: "电网设备",
+    fit: "想看政策和订单支撑，但不想追高的人。",
+    reason: "电网投资和设备更新有可跟踪的订单线索，适合作为低位修复方向观察。",
+    condition: "重点股回到20日或60日线附近，量能温和，没有连续冲高。",
     metrics: "实时涨跌幅、20日线、60日线、成交量变化",
     stocks: [
-      ["000543", "皖能电力"],
-      ["600011", "华能国际"],
-      ["600795", "国电电力"],
-      ["600021", "上海电力"]
+      ["600406", "国电南瑞"],
+      ["002028", "思源电气"],
+      ["601179", "中国西电"],
+      ["600089", "特变电工"]
     ]
   },
   {
-    name: "核电新材料",
-    fit: "想看主题弹性，但不想追高的人。",
-    reason: "用核电、新材料相关重点股的实时涨跌和52周位置，判断情绪是否过热。",
-    condition: "方向有政策或订单支撑，但重点股没有连续放量冲高。",
+    name: "创新药与医疗",
+    fit: "能接受波动，愿意等业绩和政策慢慢修复的人。",
+    reason: "医药方向容易受政策和业绩影响，低位时更适合观察，不适合情绪追高。",
+    condition: "重点股处于52周中低位，公告和业绩没有明显雷，成交没有异常放大。",
+    metrics: "实时涨跌幅、52周位置、公告风险、成交量变化",
+    stocks: [
+      ["600276", "恒瑞医药"],
+      ["603259", "药明康德"],
+      ["300760", "迈瑞医疗"],
+      ["600196", "复星医药"]
+    ]
+  },
+  {
+    name: "消费白马修复",
+    fit: "想看长期品牌资产，但不想追短线热点的人。",
+    reason: "消费白马更适合看估值和景气修复，不适合只看一天涨跌。",
+    condition: "股价回到中低位，成交温和，业绩预期没有继续下修。",
+    metrics: "实时涨跌幅、52周位置、成交量变化、估值修复",
+    stocks: [
+      ["600519", "贵州茅台"],
+      ["000858", "五粮液"],
+      ["600887", "伊利股份"],
+      ["603288", "海天味业"]
+    ]
+  },
+  {
+    name: "半导体设备",
+    fit: "能接受较大波动，只做观察不追高潮的人。",
+    reason: "国产替代方向弹性大，必须同时看位置和情绪热度。",
+    condition: "方向没有连续高潮，重点股回到合理区间，量能没有过热。",
     metrics: "实时涨跌幅、52周位置、成交量变化、板块强弱",
     stocks: [
-      ["002130", "沃尔核材"],
-      ["601985", "中国核电"],
-      ["000777", "中核科技"],
-      ["600875", "东方电气"]
+      ["002371", "北方华创"],
+      ["688012", "中微公司"],
+      ["603986", "兆易创新"],
+      ["603501", "韦尔股份"]
     ]
   },
   {
-    name: "券商金融科技",
-    fit: "能接受波动，想观察市场活跃度修复的人。",
-    reason: "用券商和互联网金融重点股的实时涨跌、52周位置和量能，判断是不是情绪过热。",
-    condition: "两市成交额改善，板块没有连续高潮，重点股回到合理位置。",
-    metrics: "实时涨跌幅、52周位置、成交量变化、市场成交额",
+    name: "港口航运",
+    fit: "偏防守，愿意观察低估值周期方向的人。",
+    reason: "港口航运更看运价、吞吐量和分红预期，适合低位观察而不是追涨。",
+    condition: "重点股52周位置不高，运价或吞吐量有改善，短期涨幅不过热。",
+    metrics: "实时涨跌幅、52周位置、成交量变化、分红与周期变量",
     stocks: [
-      ["300059", "东方财富"],
-      ["600030", "中信证券"],
-      ["601688", "华泰证券"],
-      ["600958", "东方证券"]
+      ["601919", "中远海控"],
+      ["600018", "上港集团"],
+      ["601018", "宁波港"],
+      ["601872", "招商轮船"]
     ]
   }
 ];
 
 async function summarizeDirection(pool) {
   const rows = await Promise.all(pool.stocks.map(async ([code, name]) => {
-    const [quote, klines] = await Promise.all([
+    const [quote, eastmoneyQuote, klines] = await Promise.all([
       fetchTencentQuote(code).then((item) => ({ ...item, name })).catch(() => null),
+      fetchEastmoneyQuote(code).catch(() => null),
       fetchTencentKline(code, 260).catch(() => [])
     ]);
     if (!quote) return null;
     const model = buildPriceModel(quote, klines);
+    const crossDiff = eastmoneyQuote?.currentPrice ? Math.abs(quote.currentPrice - eastmoneyQuote.currentPrice) : null;
     return {
       code,
       name,
       changePct: quote.changePct,
       position52: model.position52,
       volumeRatio: model.amountRatio,
-      currentPrice: model.currentPrice
+      currentPrice: model.currentPrice,
+      crossDiff
     };
   }));
   const usable = rows.filter(Boolean);
   const avgChangePct = average(usable.map((item) => item.changePct));
   const avgPosition52 = average(usable.map((item) => item.position52));
   const avgVolumeRatio = average(usable.map((item) => item.volumeRatio));
+  const maxCrossDiff = usable.map((item) => item.crossDiff).filter((value) => value != null).reduce((max, value) => Math.max(max, value), 0);
   let status = "可以观察";
   if (avgChangePct != null && avgChangePct >= 4) status = "不追，等回踩";
   else if (avgPosition52 != null && avgPosition52 <= 0.35) status = "低位观察";
@@ -730,16 +800,18 @@ async function summarizeDirection(pool) {
     reason: pool.reason,
     condition: pool.condition,
     stocks: selectedStocks,
-    metrics: `${pool.metrics}${avgPosition52 != null ? `；平均52周位置${Math.round(avgPosition52 * 100)}%` : ""}${avgVolumeRatio != null ? `；量能${avgVolumeRatio.toFixed(1)}倍` : ""}`,
+    metrics: `${pool.metrics}${avgPosition52 != null ? `；平均52周位置${Math.round(avgPosition52 * 100)}%` : ""}${avgVolumeRatio != null ? `；量能${avgVolumeRatio.toFixed(1)}倍` : ""}${maxCrossDiff > 0.02 ? "；部分行情待校验" : "；东方财富行情已校验"}`,
     risk,
     avgChangePct,
-    avgPosition52
+    avgPosition52,
+    avgVolumeRatio,
+    score: directionScore(avgChangePct, avgPosition52, avgVolumeRatio, status, usable.length)
   };
 }
 
 async function buildDirectionCards() {
   const settled = await Promise.allSettled(directionPools.map((pool) => summarizeDirection(pool)));
-  return settled.map((result, index) => result.status === "fulfilled" ? result.value : {
+  const summaries = settled.map((result, index) => result.status === "fulfilled" ? result.value : {
     name: directionPools[index].name,
     status: "数据获取失败",
     fit: directionPools[index].fit,
@@ -749,8 +821,35 @@ async function buildDirectionCards() {
     metrics: directionPools[index].metrics,
     risk: "数据未完整获取前，只作观察清单。",
     avgChangePct: null,
-    avgPosition52: null
+    avgPosition52: null,
+    score: -99
   });
+  const usable = summaries
+    .filter((item) => item.status !== "数据获取失败")
+    .sort((a, b) => b.score - a.score);
+  const picked = usable.slice(0, 3);
+  return picked.length === 3 ? picked : [...picked, ...summaries.filter((item) => item.status === "数据获取失败")].slice(0, 3);
+}
+
+function directionScore(avgChangePct, avgPosition52, avgVolumeRatio, status, usableCount) {
+  if (!usableCount) return -99;
+  const position = avgPosition52 ?? 0.7;
+  const change = avgChangePct ?? 0;
+  const volume = avgVolumeRatio ?? 1;
+  let score = 0;
+  if (position <= 0.35) score += 5;
+  else if (position <= 0.55) score += 3;
+  else if (position <= 0.72) score += 1;
+  else score -= 4;
+  if (change >= 4) score -= 5;
+  else if (change >= 2) score -= 2;
+  else if (change <= -3) score -= 1;
+  else score += 1;
+  if (volume >= 0.8 && volume <= 1.35) score += 1;
+  else if (volume > 1.8) score -= 2;
+  if (status === "风险较高") score -= 5;
+  if (status === "低位观察") score += 2;
+  return score + Math.min(usableCount, 4) * 0.1;
 }
 
 function orderSignals(signals = []) {
@@ -763,7 +862,7 @@ async function analyzeStock(input = {}) {
     getMarketData(input),
     buildDirectionCards()
   ]);
-  const { quote, crossCheck, quoteDiff, klines, risk } = bundle;
+  const { quote, crossCheck, eastmoneyQuote, quoteDiff, klines, risk } = bundle;
   const profile = stockProfiles.get(bundle.code) || stockProfiles.get("000543");
   const model = buildPriceModel(quote, klines);
   const marketSnapshot = await fetchMarketSnapshot(directions).catch(() => ({
@@ -810,10 +909,10 @@ async function analyzeStock(input = {}) {
   return {
     meta: {
       updatedAt: quote.fetchedAt,
-      syncStatus: quoteDiff == null || quoteDiff <= 0.01 ? "ok" : "partial",
+      syncStatus: quoteDiff == null || quoteDiff <= 0.02 ? "ok" : "partial",
       dataMode: DATA_MODE,
-      sourceName: `${quote.sourceName}${crossCheck ? "，新浪财经行情交叉校验" : ""}，巨潮公告校验，腾讯历史行情测算均线`,
-      notice: `实时价格来自${quote.sourceName}${crossCheck ? "，并用新浪财经行情交叉校验" : ""}；公告来自巨潮资讯；均线和价格位置来自腾讯历史行情。`
+      sourceName: `${quote.sourceName}${crossCheck ? "，新浪财经行情交叉校验" : ""}${eastmoneyQuote ? "，东方财富行情交叉校验" : ""}，巨潮公告校验，腾讯历史行情测算均线`,
+      notice: `实时价格来自${quote.sourceName}${crossCheck ? "，并用新浪财经行情交叉校验" : ""}${eastmoneyQuote ? "，并用东方财富行情交叉校验" : ""}；公告来自巨潮资讯；均线和价格位置来自腾讯历史行情。`
     },
     market: {
       weather: marketSnapshot.weather,
@@ -827,7 +926,7 @@ async function analyzeStock(input = {}) {
       name: profile.name || quote.name,
       code: profile.code || quote.code,
       currentPrice,
-      priceSource: `${quote.sourceName}${crossCheck ? "｜新浪校验" : ""}｜${quote.fetchedAt}`,
+      priceSource: `${quote.sourceName}${crossCheck ? "｜新浪校验" : ""}${eastmoneyQuote ? "｜东方财富校验" : ""}｜${quote.fetchedAt}`,
       conclusion,
       action,
       keyReminder: `${buyZone}附近再看`,
@@ -985,7 +1084,7 @@ createServer(async (req, res) => {
   }
 }).listen(PORT, HOST, () => {
   console.log(`A股家庭持仓体检页已启动：http://${HOST}:${PORT}`);
-  console.log("行情数据：腾讯证券行情接口为主，新浪财经行情交叉校验。演示默认密码为 123456。部署时请设置 FAMILY_PASSWORD。");
+  console.log("行情数据：腾讯证券行情接口为主，新浪财经与东方财富行情交叉校验。演示默认密码为 123456。部署时请设置 FAMILY_PASSWORD。");
 });
 
 setInterval(() => {

@@ -536,7 +536,7 @@ function renderMain() {
       ${stockFlowPage(analysis)}
       ${sectionHeader("directions", "🔍", "近期可关注的低位方向", "只看低位，不追热门高潮")}
       ${directionCards(analysis.directions)}
-      <p class="footnote">实时价格来自腾讯证券行情接口，并用新浪财经行情交叉校验；公告来自巨潮资讯；均线和价格位置来自腾讯历史行情；方向池基于重点观察股实时行情测算。不接入券商账户，不保存真实资金账户信息。</p>
+      <p class="footnote">实时价格来自腾讯证券行情接口，并用新浪财经与东方财富行情交叉校验；公告来自巨潮资讯；均线和价格位置来自腾讯历史行情；方向池基于客观候选池实时行情测算。不接入券商账户，不保存真实资金账户信息。</p>
     </div>
   `;
 
