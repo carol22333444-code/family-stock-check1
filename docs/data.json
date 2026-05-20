@@ -1,10 +1,10 @@
 {
   "defaultCode": "000543",
-  "generatedAt": "2026-05-20 19:50",
+  "generatedAt": "2026-05-20 20:40",
   "analyses": {
     "300059": {
       "meta": {
-        "updatedAt": "2026-05-20 19:50",
+        "updatedAt": "2026-05-20 20:40",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -22,7 +22,7 @@
         "name": "东方财富",
         "code": "300059",
         "currentPrice": 19.67,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-05-20 19:50",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-05-20 20:40",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "19.22-19.51元附近再看",
@@ -194,7 +194,7 @@
     },
     "000543": {
       "meta": {
-        "updatedAt": "2026-05-20 19:50",
+        "updatedAt": "2026-05-20 20:40",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -212,7 +212,7 @@
         "name": "皖能电力",
         "code": "000543",
         "currentPrice": 8.41,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-05-20 19:50",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-05-20 20:40",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "8.21-8.34元附近再看",
@@ -384,7 +384,7 @@
     },
     "002130": {
       "meta": {
-        "updatedAt": "2026-05-20 19:50",
+        "updatedAt": "2026-05-20 20:40",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -402,7 +402,7 @@
         "name": "沃尔核材",
         "code": "002130",
         "currentPrice": 21.44,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-05-20 19:50",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-05-20 20:40",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "20.95-21.27元附近再看",
@@ -424,24 +424,24 @@
             "text": "贴近观察区"
           },
           {
+            "label": "一票否决",
+            "state": "safe",
+            "text": "无"
+          },
+          {
             "label": "流动性",
             "state": "safe",
             "text": "正常"
           },
           {
+            "label": "公告风险",
+            "state": "safe",
+            "text": "暂无重大风险"
+          },
+          {
             "label": "资金筹码",
             "state": "safe",
             "text": "缩量观望"
-          },
-          {
-            "label": "一票否决",
-            "state": "missing",
-            "text": "公告获取失败"
-          },
-          {
-            "label": "公告风险",
-            "state": "missing",
-            "text": "公告获取失败"
           }
         ],
         "ruler": {
@@ -486,27 +486,27 @@
           {
             "label": "财报披露",
             "state": "missing",
-            "text": "获取失败"
+            "text": "近180天未检索到"
           },
           {
             "label": "减持公告",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           },
           {
             "label": "限售解禁",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           },
           {
             "label": "监管问询",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           },
           {
             "label": "分红除权",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           }
         ],
         "focus": {
