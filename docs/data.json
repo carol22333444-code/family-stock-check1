@@ -1,10 +1,10 @@
 {
   "defaultCode": "000543",
-  "generatedAt": "2026-06-16 21:28",
+  "generatedAt": "2026-06-17 08:10",
   "analyses": {
     "300059": {
       "meta": {
-        "updatedAt": "2026-06-16 21:28",
+        "updatedAt": "2026-06-17 08:10",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -22,7 +22,7 @@
         "name": "东方财富",
         "code": "300059",
         "currentPrice": 19.12,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-06-16 21:28",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-06-17 08:10",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "18.69-18.97元附近再看",
@@ -194,7 +194,7 @@
     },
     "000543": {
       "meta": {
-        "updatedAt": "2026-06-16 21:28",
+        "updatedAt": "2026-06-17 08:10",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -212,7 +212,7 @@
         "name": "皖能电力",
         "code": "000543",
         "currentPrice": 8.63,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-06-16 21:28",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-06-17 08:10",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "8.43-8.56元附近再看",
@@ -384,25 +384,25 @@
     },
     "002130": {
       "meta": {
-        "updatedAt": "2026-06-16 21:28",
+        "updatedAt": "2026-06-17 08:10",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
         "notice": "GitHub Pages 静态快照版：数据按最近一次自动任务刷新，不是打开页面时实时拉取。 实时价格来自腾讯证券行情接口，并用新浪财经行情交叉校验，并用东方财富行情交叉校验；公告来自巨潮资讯；均线和价格位置来自腾讯历史行情。"
       },
       "market": {
-        "weather": "中性",
-        "weatherLevel": "watch",
+        "weather": "顺风",
+        "weatherLevel": "safe",
         "turnover": "38945亿",
-        "profitEffect": "一般",
+        "profitEffect": "一般偏强",
         "hotStyle": "消费白马修复",
-        "sentence": "适合看持仓风险，不适合追高。"
+        "sentence": "市场不算难做，但也别追太急。"
       },
       "stock": {
         "name": "沃尔核材",
         "code": "002130",
         "currentPrice": 20.84,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-06-16 21:28",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-06-17 08:10",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "20.06-20.38元附近再看",
@@ -419,14 +419,14 @@
             "text": "贴近观察区"
           },
           {
-            "label": "市场环境",
-            "state": "watch",
-            "text": "中性"
-          },
-          {
             "label": "一票否决",
             "state": "safe",
             "text": "无"
+          },
+          {
+            "label": "市场环境",
+            "state": "safe",
+            "text": "顺风"
           },
           {
             "label": "流动性",
@@ -476,11 +476,11 @@
       },
       "deepDive": {
         "wind": {
-          "market": "中性",
+          "market": "顺风",
           "sector": "按个股观察",
           "industry": "按个股观察",
           "voice": "量能平稳",
-          "explanation": "现在不是不能看，但也不是顺风局，更适合等回踩。"
+          "explanation": "市场不算逆风，但个股仍要看价格和公告。"
         },
         "events": [
           {
