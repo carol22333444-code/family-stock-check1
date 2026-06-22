@@ -1,28 +1,28 @@
 {
   "defaultCode": "000543",
-  "generatedAt": "2026-06-22 17:41",
+  "generatedAt": "2026-06-22 22:42",
   "analyses": {
     "300059": {
       "meta": {
-        "updatedAt": "2026-06-22 17:41",
+        "updatedAt": "2026-06-22 22:42",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
         "notice": "GitHub Pages 静态快照版：数据按最近一次自动任务刷新，不是打开页面时实时拉取。 实时价格来自腾讯证券行情接口，并用新浪财经行情交叉校验，并用东方财富行情交叉校验；公告来自巨潮资讯；均线和价格位置来自腾讯历史行情。"
       },
       "market": {
-        "weather": "顺风",
-        "weatherLevel": "safe",
+        "weather": "中性",
+        "weatherLevel": "watch",
         "turnover": "47578亿",
-        "profitEffect": "一般偏强",
+        "profitEffect": "一般",
         "hotStyle": "创新药与医疗",
-        "sentence": "市场不算难做，但也别追太急。"
+        "sentence": "适合看持仓风险，不适合追高。"
       },
       "stock": {
         "name": "东方财富",
         "code": "300059",
         "currentPrice": 20.97,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-06-22 17:41",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-06-22 22:42",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "19.3-19.61元附近再看",
@@ -39,6 +39,11 @@
             "text": "贴近观察区"
           },
           {
+            "label": "市场环境",
+            "state": "watch",
+            "text": "中性"
+          },
+          {
             "label": "资金筹码",
             "state": "watch",
             "text": "放量分歧"
@@ -47,11 +52,6 @@
             "label": "一票否决",
             "state": "safe",
             "text": "无"
-          },
-          {
-            "label": "市场环境",
-            "state": "safe",
-            "text": "顺风"
           },
           {
             "label": "流动性",
@@ -96,11 +96,11 @@
       },
       "deepDive": {
         "wind": {
-          "market": "顺风",
+          "market": "中性",
           "sector": "按个股观察",
           "industry": "按个股观察",
           "voice": "放量分歧",
-          "explanation": "市场不算逆风，但个股仍要看价格和公告。"
+          "explanation": "现在不是不能看，但也不是顺风局，更适合等回踩。"
         },
         "events": [
           {
@@ -194,7 +194,7 @@
     },
     "000543": {
       "meta": {
-        "updatedAt": "2026-06-22 17:41",
+        "updatedAt": "2026-06-22 22:42",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -212,7 +212,7 @@
         "name": "皖能电力",
         "code": "000543",
         "currentPrice": 8.05,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-06-22 17:41",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-06-22 22:42",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "7.72-7.85元附近再看",
@@ -384,7 +384,7 @@
     },
     "002130": {
       "meta": {
-        "updatedAt": "2026-06-22 17:41",
+        "updatedAt": "2026-06-22 22:42",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -402,7 +402,7 @@
         "name": "沃尔核材",
         "code": "002130",
         "currentPrice": 20.44,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-06-22 17:41",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-06-22 22:42",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "19.71-20.03元附近再看",
