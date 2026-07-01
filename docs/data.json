@@ -1,10 +1,10 @@
 {
   "defaultCode": "000543",
-  "generatedAt": "2026-07-01 16:05",
+  "generatedAt": "2026-07-01 20:09",
   "analyses": {
     "300059": {
       "meta": {
-        "updatedAt": "2026-07-01 16:05",
+        "updatedAt": "2026-07-01 20:10",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -14,7 +14,7 @@
         "weather": "逆风",
         "weatherLevel": "risk",
         "turnover": "46415亿",
-        "profitEffect": "弱",
+        "profitEffect": "强",
         "hotStyle": "高股息央国企",
         "sentence": "今天先防风险，少乱动。"
       },
@@ -22,7 +22,7 @@
         "name": "东方财富",
         "code": "300059",
         "currentPrice": 21.45,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-07-01 16:05",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-07-01 20:10",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "20.01-20.33元附近再看",
@@ -194,7 +194,7 @@
     },
     "000543": {
       "meta": {
-        "updatedAt": "2026-07-01 16:05",
+        "updatedAt": "2026-07-01 20:09",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -212,7 +212,7 @@
         "name": "皖能电力",
         "code": "000543",
         "currentPrice": 7.75,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-07-01 16:05",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-07-01 20:09",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "7.44-7.57元附近再看",
@@ -384,17 +384,17 @@
     },
     "002130": {
       "meta": {
-        "updatedAt": "2026-07-01 16:05",
+        "updatedAt": "2026-07-01 20:10",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
-        "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
-        "notice": "GitHub Pages 静态快照版：数据按最近一次自动任务刷新，不是打开页面时实时拉取。 实时价格来自腾讯证券行情接口，并用新浪财经行情交叉校验，并用东方财富行情交叉校验；公告来自巨潮资讯；均线和价格位置来自腾讯历史行情。"
+        "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
+        "notice": "GitHub Pages 静态快照版：数据按最近一次自动任务刷新，不是打开页面时实时拉取。 实时价格来自腾讯证券行情接口，并用新浪财经行情交叉校验；公告来自巨潮资讯；均线和价格位置来自腾讯历史行情。"
       },
       "market": {
         "weather": "逆风",
         "weatherLevel": "risk",
         "turnover": "46415亿",
-        "profitEffect": "弱",
+        "profitEffect": "强",
         "hotStyle": "高股息央国企",
         "sentence": "今天先防风险，少乱动。"
       },
@@ -402,7 +402,7 @@
         "name": "沃尔核材",
         "code": "002130",
         "currentPrice": 18.35,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-07-01 16:05",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜2026-07-01 20:10",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "17.93-18.2元附近再看",
