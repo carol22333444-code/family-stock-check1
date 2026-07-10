@@ -1,10 +1,10 @@
 {
   "defaultCode": "000543",
-  "generatedAt": "2026-07-10 15:28",
+  "generatedAt": "2026-07-10 19:52",
   "analyses": {
     "300059": {
       "meta": {
-        "updatedAt": "2026-07-10 15:29",
+        "updatedAt": "2026-07-10 19:52",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -22,7 +22,7 @@
         "name": "东方财富",
         "code": "300059",
         "currentPrice": 20.19,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-07-10 15:29",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-07-10 19:52",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "19.73-20.03元附近再看",
@@ -194,7 +194,7 @@
     },
     "000543": {
       "meta": {
-        "updatedAt": "2026-07-10 15:28",
+        "updatedAt": "2026-07-10 19:52",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -212,7 +212,7 @@
         "name": "皖能电力",
         "code": "000543",
         "currentPrice": 7.65,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-07-10 15:28",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-07-10 19:52",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "7.37-7.48元附近再看",
@@ -384,7 +384,7 @@
     },
     "002130": {
       "meta": {
-        "updatedAt": "2026-07-10 15:29",
+        "updatedAt": "2026-07-10 19:52",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -394,7 +394,7 @@
         "weather": "逆风",
         "weatherLevel": "risk",
         "turnover": "42425亿",
-        "profitEffect": "弱",
+        "profitEffect": "强",
         "hotStyle": "消费白马修复",
         "sentence": "今天先防风险，少乱动。"
       },
@@ -402,7 +402,7 @@
         "name": "沃尔核材",
         "code": "002130",
         "currentPrice": 17.62,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-07-10 15:29",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-07-10 19:52",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "16.86-17.13元附近再看",
