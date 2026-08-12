@@ -1,10 +1,10 @@
 {
   "defaultCode": "000543",
-  "generatedAt": "2026-08-12 18:06",
+  "generatedAt": "2026-08-13 07:31",
   "analyses": {
     "300059": {
       "meta": {
-        "updatedAt": "2026-08-12 18:06",
+        "updatedAt": "2026-08-13 07:31",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -22,7 +22,7 @@
         "name": "东方财富",
         "code": "300059",
         "currentPrice": 19.83,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-08-12 18:06",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-08-13 07:31",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "19.37-19.67元附近再看",
@@ -194,7 +194,7 @@
     },
     "000543": {
       "meta": {
-        "updatedAt": "2026-08-12 18:06",
+        "updatedAt": "2026-08-13 07:31",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -204,7 +204,7 @@
         "weather": "顺风",
         "weatherLevel": "safe",
         "turnover": "27139亿",
-        "profitEffect": "强",
+        "profitEffect": "一般偏强",
         "hotStyle": "电网设备",
         "sentence": "市场不算难做，但也别追太急。"
       },
@@ -212,7 +212,7 @@
         "name": "皖能电力",
         "code": "000543",
         "currentPrice": 7.75,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-08-12 18:06",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-08-13 07:31",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "7.57-7.69元附近再看",
@@ -384,7 +384,7 @@
     },
     "002130": {
       "meta": {
-        "updatedAt": "2026-08-12 18:06",
+        "updatedAt": "2026-08-13 07:31",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -394,7 +394,7 @@
         "weather": "顺风",
         "weatherLevel": "safe",
         "turnover": "27139亿",
-        "profitEffect": "强",
+        "profitEffect": "一般偏强",
         "hotStyle": "电网设备",
         "sentence": "市场不算难做，但也别追太急。"
       },
@@ -402,7 +402,7 @@
         "name": "沃尔核材",
         "code": "002130",
         "currentPrice": 17.41,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-08-12 18:06",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-08-13 07:31",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "16.86-17.13元附近再看",
