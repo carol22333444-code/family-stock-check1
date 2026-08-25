@@ -1,10 +1,10 @@
 {
   "defaultCode": "000543",
-  "generatedAt": "2026-08-25 17:35",
+  "generatedAt": "2026-08-26 07:17",
   "analyses": {
     "300059": {
       "meta": {
-        "updatedAt": "2026-08-25 17:35",
+        "updatedAt": "2026-08-26 07:17",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -14,7 +14,7 @@
         "weather": "中性",
         "weatherLevel": "watch",
         "turnover": "22958亿",
-        "profitEffect": "弱",
+        "profitEffect": "强",
         "hotStyle": "创新药与医疗",
         "sentence": "适合看持仓风险，不适合追高。"
       },
@@ -22,7 +22,7 @@
         "name": "东方财富",
         "code": "300059",
         "currentPrice": 18.93,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-08-25 17:35",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-08-26 07:17",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "18.5-18.78元附近再看",
@@ -194,7 +194,7 @@
     },
     "000543": {
       "meta": {
-        "updatedAt": "2026-08-25 17:35",
+        "updatedAt": "2026-08-26 07:17",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -204,7 +204,7 @@
         "weather": "中性",
         "weatherLevel": "watch",
         "turnover": "22958亿",
-        "profitEffect": "弱",
+        "profitEffect": "强",
         "hotStyle": "创新药与医疗",
         "sentence": "适合看持仓风险，不适合追高。"
       },
@@ -212,7 +212,7 @@
         "name": "皖能电力",
         "code": "000543",
         "currentPrice": 7.47,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-08-25 17:35",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-08-26 07:17",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "7.3-7.41元附近再看",
@@ -384,7 +384,7 @@
     },
     "002130": {
       "meta": {
-        "updatedAt": "2026-08-25 17:35",
+        "updatedAt": "2026-08-26 07:17",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -394,7 +394,7 @@
         "weather": "中性",
         "weatherLevel": "watch",
         "turnover": "22958亿",
-        "profitEffect": "弱",
+        "profitEffect": "强",
         "hotStyle": "创新药与医疗",
         "sentence": "适合看持仓风险，不适合追高。"
       },
@@ -402,7 +402,7 @@
         "name": "沃尔核材",
         "code": "002130",
         "currentPrice": 17.05,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-08-25 17:35",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-08-26 07:17",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "16.66-16.91元附近再看",
