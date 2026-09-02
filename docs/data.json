@@ -1,10 +1,10 @@
 {
   "defaultCode": "000543",
-  "generatedAt": "2026-09-01 21:58",
+  "generatedAt": "2026-09-02 08:41",
   "analyses": {
     "300059": {
       "meta": {
-        "updatedAt": "2026-09-01 21:58",
+        "updatedAt": "2026-09-02 08:41",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -14,7 +14,7 @@
         "weather": "逆风",
         "weatherLevel": "risk",
         "turnover": "25405亿",
-        "profitEffect": "强",
+        "profitEffect": "弱",
         "hotStyle": "创新药与医疗",
         "sentence": "今天先防风险，少乱动。"
       },
@@ -22,7 +22,7 @@
         "name": "东方财富",
         "code": "300059",
         "currentPrice": 19.4,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-09-01 21:58",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-09-02 08:41",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "18.95-19.24元附近再看",
@@ -194,7 +194,7 @@
     },
     "000543": {
       "meta": {
-        "updatedAt": "2026-09-01 21:58",
+        "updatedAt": "2026-09-02 08:41",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -212,7 +212,7 @@
         "name": "皖能电力",
         "code": "000543",
         "currentPrice": 7.35,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-09-01 21:58",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-09-02 08:41",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "7.16-7.27元附近再看",
@@ -384,7 +384,7 @@
     },
     "002130": {
       "meta": {
-        "updatedAt": "2026-09-01 21:58",
+        "updatedAt": "2026-09-02 08:41",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -394,7 +394,7 @@
         "weather": "逆风",
         "weatherLevel": "risk",
         "turnover": "25405亿",
-        "profitEffect": "强",
+        "profitEffect": "弱",
         "hotStyle": "创新药与医疗",
         "sentence": "今天先防风险，少乱动。"
       },
@@ -402,7 +402,7 @@
         "name": "沃尔核材",
         "code": "002130",
         "currentPrice": 16.9,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-09-01 21:58",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-09-02 08:41",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "15.52-15.77元附近再看",
