@@ -1,14 +1,14 @@
 {
   "defaultCode": "000543",
-  "generatedAt": "2026-09-07 22:51",
+  "generatedAt": "2026-09-08 08:49",
   "analyses": {
     "300059": {
       "meta": {
-        "updatedAt": "2026-09-07 22:52",
+        "updatedAt": "2026-09-08 08:49",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
-        "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
-        "notice": "GitHub Pages 静态快照版：数据按最近一次自动任务刷新，不是打开页面时实时拉取。 实时价格来自腾讯证券行情接口，并用新浪财经行情交叉校验，并用东方财富行情交叉校验；公告来自巨潮资讯；均线和价格位置来自腾讯历史行情。"
+        "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
+        "notice": "GitHub Pages 静态快照版：数据按最近一次自动任务刷新，不是打开页面时实时拉取。 实时价格来自腾讯证券行情接口，并用新浪财经行情交叉校验；公告来自巨潮资讯；均线和价格位置来自腾讯历史行情。"
       },
       "market": {
         "weather": "顺风",
@@ -22,7 +22,7 @@
         "name": "东方财富",
         "code": "300059",
         "currentPrice": 18.99,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-09-07 22:52",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜2026-09-08 08:49",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "18.56-18.84元附近再看",
@@ -39,6 +39,11 @@
             "text": "贴近观察区"
           },
           {
+            "label": "一票否决",
+            "state": "safe",
+            "text": "无"
+          },
+          {
             "label": "市场环境",
             "state": "safe",
             "text": "顺风"
@@ -49,19 +54,14 @@
             "text": "正常"
           },
           {
+            "label": "公告风险",
+            "state": "safe",
+            "text": "暂无重大风险"
+          },
+          {
             "label": "资金筹码",
             "state": "safe",
             "text": "量能平稳"
-          },
-          {
-            "label": "一票否决",
-            "state": "missing",
-            "text": "公告获取失败"
-          },
-          {
-            "label": "公告风险",
-            "state": "missing",
-            "text": "公告获取失败"
           }
         ],
         "ruler": {
@@ -106,27 +106,27 @@
           {
             "label": "财报披露",
             "state": "missing",
-            "text": "获取失败"
+            "text": "近180天未检索到"
           },
           {
             "label": "减持公告",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           },
           {
             "label": "限售解禁",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           },
           {
             "label": "监管问询",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           },
           {
             "label": "分红除权",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           }
         ],
         "focus": {
@@ -194,11 +194,11 @@
     },
     "000543": {
       "meta": {
-        "updatedAt": "2026-09-07 22:51",
+        "updatedAt": "2026-09-08 08:49",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
-        "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
-        "notice": "GitHub Pages 静态快照版：数据按最近一次自动任务刷新，不是打开页面时实时拉取。 实时价格来自腾讯证券行情接口，并用新浪财经行情交叉校验，并用东方财富行情交叉校验；公告来自巨潮资讯；均线和价格位置来自腾讯历史行情。"
+        "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
+        "notice": "GitHub Pages 静态快照版：数据按最近一次自动任务刷新，不是打开页面时实时拉取。 实时价格来自腾讯证券行情接口，并用新浪财经行情交叉校验；公告来自巨潮资讯；均线和价格位置来自腾讯历史行情。"
       },
       "market": {
         "weather": "顺风",
@@ -212,7 +212,7 @@
         "name": "皖能电力",
         "code": "000543",
         "currentPrice": 7.32,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-09-07 22:51",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜2026-09-08 08:49",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "7.15-7.26元附近再看",
@@ -229,6 +229,11 @@
             "text": "贴近观察区"
           },
           {
+            "label": "一票否决",
+            "state": "safe",
+            "text": "无"
+          },
+          {
             "label": "市场环境",
             "state": "safe",
             "text": "顺风"
@@ -239,19 +244,14 @@
             "text": "正常"
           },
           {
+            "label": "公告风险",
+            "state": "safe",
+            "text": "暂无重大风险"
+          },
+          {
             "label": "资金筹码",
             "state": "safe",
             "text": "量能平稳"
-          },
-          {
-            "label": "一票否决",
-            "state": "missing",
-            "text": "公告获取失败"
-          },
-          {
-            "label": "公告风险",
-            "state": "missing",
-            "text": "公告获取失败"
           }
         ],
         "ruler": {
@@ -295,28 +295,28 @@
         "events": [
           {
             "label": "财报披露",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "2026-08-29：2026年半年度报告摘要"
           },
           {
             "label": "减持公告",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           },
           {
             "label": "限售解禁",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           },
           {
             "label": "监管问询",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           },
           {
             "label": "分红除权",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "watch",
+            "text": "2026-07-09：2025年度分红派息实施公告"
           }
         ],
         "focus": {
@@ -384,11 +384,11 @@
     },
     "002130": {
       "meta": {
-        "updatedAt": "2026-09-07 22:51",
+        "updatedAt": "2026-09-08 08:49",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
-        "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，东方财富行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
-        "notice": "GitHub Pages 静态快照版：数据按最近一次自动任务刷新，不是打开页面时实时拉取。 实时价格来自腾讯证券行情接口，并用新浪财经行情交叉校验，并用东方财富行情交叉校验；公告来自巨潮资讯；均线和价格位置来自腾讯历史行情。"
+        "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
+        "notice": "GitHub Pages 静态快照版：数据按最近一次自动任务刷新，不是打开页面时实时拉取。 实时价格来自腾讯证券行情接口，并用新浪财经行情交叉校验；公告来自巨潮资讯；均线和价格位置来自腾讯历史行情。"
       },
       "market": {
         "weather": "顺风",
@@ -402,7 +402,7 @@
         "name": "沃尔核材",
         "code": "002130",
         "currentPrice": 17.19,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜东方财富校验｜2026-09-07 22:51",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜2026-09-08 08:49",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "16.79-17.05元附近再看",
@@ -419,6 +419,11 @@
             "text": "贴近观察区"
           },
           {
+            "label": "一票否决",
+            "state": "safe",
+            "text": "无"
+          },
+          {
             "label": "市场环境",
             "state": "safe",
             "text": "顺风"
@@ -429,19 +434,14 @@
             "text": "正常"
           },
           {
+            "label": "公告风险",
+            "state": "safe",
+            "text": "暂无重大风险"
+          },
+          {
             "label": "资金筹码",
             "state": "safe",
             "text": "量能平稳"
-          },
-          {
-            "label": "一票否决",
-            "state": "missing",
-            "text": "公告获取失败"
-          },
-          {
-            "label": "公告风险",
-            "state": "missing",
-            "text": "公告获取失败"
           }
         ],
         "ruler": {
@@ -486,27 +486,27 @@
           {
             "label": "财报披露",
             "state": "missing",
-            "text": "获取失败"
+            "text": "近180天未检索到"
           },
           {
             "label": "减持公告",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           },
           {
             "label": "限售解禁",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           },
           {
             "label": "监管问询",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           },
           {
             "label": "分红除权",
-            "state": "missing",
-            "text": "获取失败"
+            "state": "safe",
+            "text": "暂无"
           }
         ],
         "focus": {
