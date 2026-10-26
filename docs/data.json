@@ -1,10 +1,10 @@
 {
   "defaultCode": "000543",
-  "generatedAt": "2026-10-23 22:06",
+  "generatedAt": "2026-10-26 08:53",
   "analyses": {
     "300059": {
       "meta": {
-        "updatedAt": "2026-10-23 22:06",
+        "updatedAt": "2026-10-26 08:53",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -22,7 +22,7 @@
         "name": "东方财富",
         "code": "300059",
         "currentPrice": 18.55,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜2026-10-23 22:06",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜2026-10-26 08:53",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "17.92-18.21元附近再看",
@@ -194,7 +194,7 @@
     },
     "000543": {
       "meta": {
-        "updatedAt": "2026-10-23 22:06",
+        "updatedAt": "2026-10-26 08:53",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -204,7 +204,7 @@
         "weather": "顺风",
         "weatherLevel": "safe",
         "turnover": "24908亿",
-        "profitEffect": "强",
+        "profitEffect": "一般偏强",
         "hotStyle": "半导体设备",
         "sentence": "市场不算难做，但也别追太急。"
       },
@@ -212,7 +212,7 @@
         "name": "皖能电力",
         "code": "000543",
         "currentPrice": 6.95,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜2026-10-23 22:06",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜2026-10-26 08:53",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "6.79-6.89元附近再看",
@@ -384,7 +384,7 @@
     },
     "002130": {
       "meta": {
-        "updatedAt": "2026-10-23 22:06",
+        "updatedAt": "2026-10-26 08:53",
         "syncStatus": "ok",
         "dataMode": "public-quote-crosscheck",
         "sourceName": "腾讯证券行情接口，新浪财经行情交叉校验，巨潮公告校验，腾讯历史行情测算均线",
@@ -402,7 +402,7 @@
         "name": "沃尔核材",
         "code": "002130",
         "currentPrice": 14.81,
-        "priceSource": "腾讯证券行情接口｜新浪校验｜2026-10-23 22:06",
+        "priceSource": "腾讯证券行情接口｜新浪校验｜2026-10-26 08:53",
         "conclusion": "还没到舒服位置",
         "action": "继续等回踩",
         "keyReminder": "13.77-13.99元附近再看",
